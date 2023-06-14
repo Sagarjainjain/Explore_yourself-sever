@@ -4,7 +4,7 @@
   "description": "it's is a flight and hotel reservation app ",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "author": "sagar",
   "license": "ISC",
