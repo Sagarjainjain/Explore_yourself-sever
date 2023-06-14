@@ -7,6 +7,7 @@ const router = express.Router();
 router.get("/search", uppercaseMiddleware, flightbySearch);
 router.get("/", getFlights );
 router.get("/:id", getFLight);
+
 router.post("/", postFlights);
 router.patch("/:id", updateFlight);
 router.delete("/:id", deleteFlight);

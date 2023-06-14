@@ -127,3 +127,13 @@ export const HotelBooking = async (req, res) => {
       res.status(404).json({ message: error.message });
     }
 }
+
+export const DeleteAccount = async (req, res) => {
+  const { id: _id } = req.params;
+  
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send(`No User with id: ${id} available`);
+
+  await Users.findByIdAndRemove(_id);
+  res.json({ message: "User deleted successfully." });
+}
