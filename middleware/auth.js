@@ -8,12 +8,11 @@ const auth = async (req, res, next) => {
 
     if (token && isCustom) {
       decodedData = jwt.verify(token, "test");
-
       req.userId = decodedData?.id;
     }
     next();
   } catch (error) {
-    console.log(error);
+    res.status(404).json(error);
   }
 };
 
