@@ -16,16 +16,15 @@ export const getHotelId = async (req, res) => {
   try {
     const hotel = await Hotel.findById(id);
     res.status(200).json(hotel);
-
   } catch (error) {
-    console.log(error)
+    res.status(404).json({ message: error.message});
   }
-}
+};
 export const searchHotel = async (req, res) => {
   const { hotelplace } = req.query;
 
   try {
-    const HotelBySearch = await Hotel.find({hotelplace});
+    const HotelBySearch = await Hotel.find({ hotelplace });
     res.status(200).json(HotelBySearch);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -60,6 +59,20 @@ export const postHotel = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
+export const addReview = async (req, res) => {
+  const { id } = req.params;
+  const review = req.body;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(404).json({ message: "not a valid id" });
+    const hotelReview = await Hotel.findById(id);
+    hotelReview.reviews.push(review);
+    const updatedHotelPost = await Hotel.findByIdAndUpdate(id, hotelReview, {new: true});
+    res.json(updatedHotelPost)
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 export const updateHotel = async (req, res) => {
   const { id: _id } = req.params;
   const hotel = req.body;
@@ -71,13 +84,13 @@ export const updateHotel = async (req, res) => {
     new: true,
   });
   res.json(updatedHotel);
-}
+};
 export const deleteHotel = async (req, res) => {
-    const { id: _id } = req.params;
+  const { id: _id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(_id))
     return res.status(404).send(`No hotel with id: ${id}`);
 
   await Hotel.findByIdAndRemove(_id);
   res.json({ message: "hotel deleted successfully." });
-}
+};

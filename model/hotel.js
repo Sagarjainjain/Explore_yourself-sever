@@ -9,6 +9,7 @@ const postSchema = mongoose.Schema({
   checkin: Number,
   checkout: Number,
   photos: [String],
+  reviews: []
 });
 
 const Hotel = mongoose.model('Hotel', postSchema);

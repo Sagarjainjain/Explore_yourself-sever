@@ -12,6 +12,7 @@ Dotenv.config()
 
 const app = express();
 
+const appdiscription = `It's an flights and hotels reservation application this url is its backend`
 
 app.use(bodyParser.json({ limit: "30mb", extended: true}));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
@@ -25,8 +26,9 @@ app.use("/user", user)
 app.use("/cities", Cities)
 app.use("/flights" ,flights)
 app.use("/", (req, res) => {
-    res.send("app running");
-})
+  res.json(appdiscription);
+});
+
 
 const PORT = 5000;
 mongoose.set("strictQuery", false);
