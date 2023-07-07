@@ -73,6 +73,17 @@ export const addReview = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const getReviews = async ( req, res) => {
+  const { id } = req.params;
+    try {
+      const hotel = await Hotel.findById(id);
+
+      res.status(200).json(hotel.reviews);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+}
 export const updateHotel = async (req, res) => {
   const { id: _id } = req.params;
   const hotel = req.body;
