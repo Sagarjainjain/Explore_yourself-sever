@@ -78,8 +78,8 @@ export const getReviews = async ( req, res) => {
   const { id } = req.params;
     try {
       const hotel = await Hotel.findById(id);
-
-      res.status(200).json(hotel.reviews);
+      const reviews = hotel.reviews.reverse()
+      res.status(200).json(reviews);
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
